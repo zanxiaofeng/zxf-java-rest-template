@@ -16,6 +16,7 @@
 - org.apache.http.impl.conn.BasicHttpClientConnectionManager
 - org.apache.http.conn.ConnectionKeepAliveStrategy
 - org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy
+- org.apache.http.impl.client.IdleConnectionEvictor
 
 # Key Classes for apache ok-http-3
 - okhttp3.OkHttpClient
