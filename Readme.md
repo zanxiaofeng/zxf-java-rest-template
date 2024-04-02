@@ -25,3 +25,4 @@
 # Test
 - curl http://localhost:8080/clients/ok-http?target=www.sina.com
 - netstat -lnpt
+- jstack <pid>
