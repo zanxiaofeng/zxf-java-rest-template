@@ -14,6 +14,8 @@
 - org.apache.http.conn.HttpClientConnectionManager
 - org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 - org.apache.http.impl.conn.BasicHttpClientConnectionManager
+- org.apache.http.impl.conn.DefaultHttpClientConnectionOperator
+- org.apache.http.impl.conn.CPool
 - org.apache.http.conn.ConnectionKeepAliveStrategy
 - org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy
 - org.apache.http.impl.client.IdleConnectionEvictor

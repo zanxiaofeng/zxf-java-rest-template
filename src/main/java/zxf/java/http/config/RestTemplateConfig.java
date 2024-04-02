@@ -4,6 +4,8 @@ import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -15,6 +17,11 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class RestTemplateConfig {
+    @Bean("defaultRestTemplate")
+    public RestTemplate defaultRestTemplate(@Autowired RestTemplateBuilder restTemplateBuilder) {
+        return restTemplateBuilder.build();
+    }
+
     @Bean("simpleRestTemplate")
     public RestTemplate simpleRestTemplate() {
         SimpleClientHttpRequestFactory simpleClientHttpRequestFactory = new SimpleClientHttpRequestFactory();

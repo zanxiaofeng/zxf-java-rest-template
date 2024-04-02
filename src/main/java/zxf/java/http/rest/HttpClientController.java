@@ -12,6 +12,10 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/clients")
 public class HttpClientController {
     @Autowired
+    @Qualifier("defaultRestTemplate")
+    private RestTemplate defaultRestTemplate;
+
+    @Autowired
     @Qualifier("simpleRestTemplate")
     private RestTemplate simpleRestTemplate;
 
@@ -27,23 +31,28 @@ public class HttpClientController {
     @Qualifier("apacheRestTemplateWithPool")
     private RestTemplate apacheRestTemplateWithPool;
 
+    @GetMapping("/default")
+    public String defaultHttp(@RequestParam String target) {
+        return defaultRestTemplate.getForObject("https://" + target, String.class);
+    }
+
     @GetMapping("/simple")
-    public String simple(@RequestParam String target) {
+    public String simpleHttp(@RequestParam String target) {
         return simpleRestTemplate.getForObject("https://" + target, String.class);
     }
 
     @GetMapping("/ok-http")
-    public String okHttp3(@RequestParam String target) {
+    public String okHttp3Http(@RequestParam String target) {
         return okHttp3RestTemplate.getForObject("https://" + target, String.class);
     }
 
     @GetMapping("/apache/default")
-    public String defaultApache(@RequestParam String target) {
+    public String defaultApacheHttp(@RequestParam String target) {
         return defaultApacheRestTemplate.getForObject("https://" + target, String.class);
     }
 
     @GetMapping("/apache/pooling")
-    public String apacheWithPooling(@RequestParam String target) {
+    public String apacheHttpWithPooling(@RequestParam String target) {
         return apacheRestTemplateWithPool.getForObject("https://" + target, String.class);
     }
 }
