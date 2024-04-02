@@ -1,49 +1,27 @@
 # Key Classes of RestTemplate
 - org.springframework.web.client.RestTemplate
-- org.springframework.http.HttpEntity;
-- org.springframework.http.HttpHeaders;
-- org.springframework.http.HttpMethod;
-- org.springframework.http.HttpStatus;
-- org.springframework.http.MediaType;
-- org.springframework.http.RequestEntity;
-- org.springframework.http.ResponseEntity;
-- org.springframework.http.client.ClientHttpRequest;
 - org.springframework.http.client.ClientHttpRequestFactory;
+- org.springframework.http.client.ClientHttpRequest;
 - org.springframework.http.client.ClientHttpResponse;
-- org.springframework.http.client.support.InterceptingHttpAccessor;
-- org.springframework.http.converter.ByteArrayHttpMessageConverter;
-- org.springframework.http.converter.GenericHttpMessageConverter;
 - org.springframework.http.converter.HttpMessageConverter;
-- org.springframework.http.converter.ResourceHttpMessageConverter;
-- org.springframework.http.converter.StringHttpMessageConverter;
-- org.springframework.http.converter.cbor.MappingJackson2CborHttpMessageConverter;
-- org.springframework.http.converter.feed.AtomFeedHttpMessageConverter;
-- org.springframework.http.converter.feed.RssChannelHttpMessageConverter;
-- org.springframework.http.converter.json.GsonHttpMessageConverter;
-- org.springframework.http.converter.json.JsonbHttpMessageConverter;
-- org.springframework.http.converter.json.KotlinSerializationJsonHttpMessageConverter;
-- org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-- org.springframework.http.converter.smile.MappingJackson2SmileHttpMessageConverter;
-- org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
-- org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
-- org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
-- org.springframework.http.converter.xml.SourceHttpMessageConverter;
 - org.springframework.http.client.SimpleClientHttpRequestFactory
 - org.springframework.http.client.HttpComponentsClientHttpRequestFactory
+- org.springframework.http.client.OkHttp3ClientHttpRequestFactory
 
 # Key Classes for apache http-client
-- org.apache.http.client.HttpClient;
-- org.apache.http.client.config.RequestConfig;
-- org.apache.http.client.methods.Configurable;
-- org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-- org.apache.http.client.methods.HttpGet;
-- org.apache.http.client.methods.HttpHead;
-- org.apache.http.client.methods.HttpOptions;
-- org.apache.http.client.methods.HttpPatch;
-- org.apache.http.client.methods.HttpPost;
-- org.apache.http.client.methods.HttpPut;
-- org.apache.http.client.methods.HttpTrace;
-- org.apache.http.client.methods.HttpUriRequest;
-- org.apache.http.client.protocol.HttpClientContext;
 - org.apache.http.impl.client.HttpClients;
-- org.apache.http.protocol.HttpContext;
+- org.apache.http.client.HttpClient;
+- org.apache.http.conn.HttpClientConnectionManager
+- org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+- org.apache.http.impl.conn.BasicHttpClientConnectionManager
+- org.apache.http.conn.ConnectionKeepAliveStrategy
+- org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy
+
+# Key Classes for apache ok-http-3
+- okhttp3.OkHttpClient
+- okhttp3.ConnectionPool
+- okhttp3.internal.platform.Platform
+
+# Test
+- curl http://localhost:8080/clients/ok-http?target=www.sina.com
+- netstat -lnpt

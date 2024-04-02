@@ -1,8 +1,9 @@
 package zxf.java.http.config;
 
+import okhttp3.ConnectionPool;
+import okhttp3.OkHttpClient;
 import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.impl.client.HttpClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -20,11 +21,14 @@ public class RestTemplateConfig {
         return new RestTemplate(simpleClientHttpRequestFactory);
     }
 
-//    @Bean("okHttp3RestTemplate")
-//    public RestTemplate okHttp3RestTemplate() {
-//        OkHttp3ClientHttpRequestFactory okHttp3ClientHttpRequestFactory = new OkHttp3ClientHttpRequestFactory();
-//        return new RestTemplate(okHttp3ClientHttpRequestFactory);
-//    }
+    @Bean("okHttp3RestTemplate")
+    public RestTemplate okHttp3RestTemplate() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectionPool(new ConnectionPool(200, 30, TimeUnit.MINUTES))
+                .build();
+        OkHttp3ClientHttpRequestFactory okHttp3ClientHttpRequestFactory = new OkHttp3ClientHttpRequestFactory(client);
+        return new RestTemplate(okHttp3ClientHttpRequestFactory);
+    }
 
     @Bean("defaultApacheRestTemplate")
     public RestTemplate defaultApacheRestTemplate() {
@@ -34,10 +38,13 @@ public class RestTemplateConfig {
 
     @Bean("apacheRestTemplateWithPool")
     public RestTemplate apacheRestTemplateWithPool() {
-        PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager(30, TimeUnit.MINUTES);
-        poolingHttpClientConnectionManager.setMaxTotal(200);
-        poolingHttpClientConnectionManager.setDefaultMaxPerRoute(10);
-        HttpClient httpClient = HttpClientBuilder.create().setConnectionManager(poolingHttpClientConnectionManager).build();
+        HttpClient httpClient = HttpClients.custom()
+                .setConnectionTimeToLive(15, TimeUnit.MINUTES)
+                .setMaxConnTotal(1000)
+                .setMaxConnPerRoute(20)
+                .evictExpiredConnections()
+                .evictIdleConnections(5, TimeUnit.MINUTES)
+                .build();
         HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
         return new RestTemplate(httpComponentsClientHttpRequestFactory);
     }

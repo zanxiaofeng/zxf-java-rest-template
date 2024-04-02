@@ -15,9 +15,9 @@ public class HttpClientController {
     @Qualifier("simpleRestTemplate")
     private RestTemplate simpleRestTemplate;
 
-//    @Autowired
-//    @Qualifier("okHttp3RestTemplate")
-//    private RestTemplate okHttp3RestTemplate;
+    @Autowired
+    @Qualifier("okHttp3RestTemplate")
+    private RestTemplate okHttp3RestTemplate;
 
     @Autowired
     @Qualifier("defaultApacheRestTemplate")
@@ -32,10 +32,10 @@ public class HttpClientController {
         return simpleRestTemplate.getForObject("https://" + target, String.class);
     }
 
-//    @GetMapping("/ok-http")
-//    public String okHttp3(@RequestParam String target) {
-//        return okHttp3RestTemplate.getForObject("https://" + target, String.class);
-//    }
+    @GetMapping("/ok-http")
+    public String okHttp3(@RequestParam String target) {
+        return okHttp3RestTemplate.getForObject("https://" + target, String.class);
+    }
 
     @GetMapping("/apache/default")
     public String defaultApache(@RequestParam String target) {
