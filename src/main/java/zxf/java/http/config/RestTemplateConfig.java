@@ -47,7 +47,7 @@ public class RestTemplateConfig {
     public RestTemplate apacheRestTemplateWithPool() {
         HttpClient httpClient = HttpClients.custom()
                 .setConnectionTimeToLive(15, TimeUnit.MINUTES)
-                .setMaxConnTotal(1000)
+                .setMaxConnTotal(200)
                 .setMaxConnPerRoute(20)
                 .evictExpiredConnections()
                 .evictIdleConnections(5, TimeUnit.MINUTES)
