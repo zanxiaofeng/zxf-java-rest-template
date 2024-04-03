@@ -24,6 +24,11 @@
 - org.apache.http.cookie.CookieSpec
 - org.apache.http.cookie.CookieSpecProvider
 
+# IO模型与应用层TCP连接状态检测
+- 对非阻塞式IO模型，OS层可以通过Callback来通知应用层TCP连接状态的变化。
+- 对阻塞式IO模型，只有在执行进入阻塞式IO相关的系统调用时，应用层才有可能检测到OS层TCP连接的状态变化。
+
+
 # Checks whether this connection has gone down
 ## Description
 - Network connections may get closed during some time of inactivity for several reasons. 
