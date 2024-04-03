@@ -25,7 +25,12 @@
 - okhttp3.ConnectionPool
 - okhttp3.internal.platform.Platform
 
+# Key Classes for Auto Configure
+- org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration
+- org.springframework.boot.autoconfigure.web.client.RestTemplateBuilderConfigurer
+- org.springframework.boot.web.client.ClientHttpRequestFactorySupplier
+
 # Test
-- curl http://localhost:8080/clients/ok-http?target=www.sina.com
-- netstat -lnpt
+- curl http://localhost:8080/clients/apache/default?target=www.sina.com
+- netstat -cnpt|grep <pid>
 - jstack <pid>
