@@ -3,6 +3,8 @@ package zxf.java.http.config;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -46,11 +48,12 @@ public class RestTemplateConfig {
     @Bean("apacheRestTemplateWithPool")
     public RestTemplate apacheRestTemplateWithPool() {
         HttpClient httpClient = HttpClients.custom()
-                .setConnectionTimeToLive(15, TimeUnit.MINUTES)
                 .setMaxConnTotal(200)
                 .setMaxConnPerRoute(20)
                 .evictExpiredConnections()
                 .evictIdleConnections(5, TimeUnit.MINUTES)
+                .setConnectionTimeToLive(15, TimeUnit.MINUTES)
+                .setDefaultRequestConfig(RequestConfig.custom().setCookieSpec(CookieSpecs.IGNORE_COOKIES).build())
                 .build();
         HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
         return new RestTemplate(httpComponentsClientHttpRequestFactory);
