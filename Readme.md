@@ -46,6 +46,11 @@
 - org.apache.http.impl.BHttpConnectionBase.isStale
 ## Control Parameter
 - org.apache.http.impl.conn.PoolingHttpClientConnectionManager.setValidateAfterInactivity(int)
+- org.apache.http.pool.AbstractConnPool.lease(T, java.lang.Object, org.apache.http.concurrent.FutureCallback<E>)
+- org.apache.http.pool.AbstractConnPool.validate
+- org.apache.http.impl.conn.CPool.validate
+- org.apache.http.HttpConnection.isStale
+- org.apache.http.impl.BHttpConnectionBase.isStale
 
 # Key Classes for apache ok-http-3
 - okhttp3.OkHttpClient
