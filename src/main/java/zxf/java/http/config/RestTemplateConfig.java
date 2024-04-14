@@ -51,9 +51,15 @@ public class RestTemplateConfig {
                 .setMaxConnTotal(200)
                 .setMaxConnPerRoute(20)
                 .evictExpiredConnections()
-                .evictIdleConnections(5, TimeUnit.MINUTES)
-                .setConnectionTimeToLive(15, TimeUnit.MINUTES)
-                .setDefaultRequestConfig(RequestConfig.custom().setCookieSpec(CookieSpecs.IGNORE_COOKIES).build())
+                .evictIdleConnections(30, TimeUnit.MINUTES)
+                .setConnectionTimeToLive(60, TimeUnit.MINUTES)
+                .setDefaultRequestConfig(RequestConfig.custom()
+                        .setRedirectsEnabled(false)
+                        .setConnectionRequestTimeout(30 * 1000)
+                        .setSocketTimeout(30 * 1000)
+                        .setConnectTimeout(10 * 1000)
+                        .setCookieSpec(CookieSpecs.IGNORE_COOKIES)
+                        .build())
                 .build();
         HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
         return new RestTemplate(httpComponentsClientHttpRequestFactory);

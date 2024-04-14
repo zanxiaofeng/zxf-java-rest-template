@@ -15,6 +15,8 @@
 - org.apache.http.impl.conn.PoolingHttpClientConnectionManager(ValidateAfterInactivity=2000ms);
 - org.apache.http.impl.conn.BasicHttpClientConnectionManager
 - org.apache.http.impl.conn.DefaultHttpClientConnectionOperator
+- org.apache.http.impl.conn.DefaultHttpResponseParser.parseHead
+- org.apache.http.impl.io.SessionInputBufferImpl.streamRead
 - org.apache.http.impl.conn.CPool
 - org.apache.http.conn.ConnectionKeepAliveStrategy
 - org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy
@@ -24,10 +26,12 @@
 - org.apache.http.cookie.CookieSpec
 - org.apache.http.cookie.CookieSpecProvider
 
+# Key classes of java.net
+- java.net.Socket.SocketInputStream.read(byte[], int, int)
+
 # IO模型与应用层TCP连接状态检测
 - 对非阻塞式IO模型，OS层可以通过Callback来通知应用层TCP连接状态的变化。
 - 对阻塞式IO模型，只有在执行进入阻塞式IO相关的系统调用时，应用层才有可能检测到OS层TCP连接的状态变化。
-
 
 # Checks whether this connection has gone down
 ## Description
@@ -54,6 +58,13 @@
 - org.springframework.boot.web.client.ClientHttpRequestFactorySupplier
 
 # Test
-- curl http://localhost:8080/clients/apache/default?target=www.sina.com
+- curl http://localhost:8080/clients/apache/pooling?target=www.youdao.com
 - netstat -cnpt|grep <pid>
 - jstack <pid>
+
+# Test steps for reproduce connection reset
+1. Start server
+2. curl http://localhost:8080/clients/apache/pooling?target=www.youdao.com [Success]
+3. Start tcp reset: python ./tcp-connection-reset.py <client_id> 111.124.200.101 443
+4. curl http://localhost:8080/clients/apache/pooling?target=www.youdao.com [Timeout]
+5. curl http://localhost:8080/clients/apache/pooling?target=www.youdao.com [Quick failed with connection reset exception]

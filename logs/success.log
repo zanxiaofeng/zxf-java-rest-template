@@ -1,0 +1,8 @@
+2024-04-13 22:44:56.488 DEBUG 109858 --- [nio-8080-exec-1] h.i.c.PoolingHttpClientConnectionManager : Connection request: [route: {s}->https://www.youdao.com:443][total available: 0; route allocated: 0 of 2; total allocated: 0 of 20]
+2024-04-13 22:44:56.493 DEBUG 109858 --- [nio-8080-exec-1] h.i.c.PoolingHttpClientConnectionManager : Connection leased: [id: 0][route: {s}->https://www.youdao.com:443][total available: 0; route allocated: 1 of 2; total allocated: 1 of 20]
+2024-04-13 22:44:56.511 DEBUG 109858 --- [nio-8080-exec-1] .i.c.DefaultHttpClientConnectionOperator : Connecting to www.youdao.com/111.124.200.101:443
+2024-04-13 22:44:56.637 DEBUG 109858 --- [nio-8080-exec-1] .i.c.DefaultHttpClientConnectionOperator : Connection established 192.168.3.16:40858<->111.124.200.101:443
+2024-04-13 22:44:56.637 DEBUG 109858 --- [nio-8080-exec-1] h.i.c.DefaultManagedHttpClientConnection : http-outgoing-0: set socket timeout to 30000
+2024-04-13 22:44:56.729 DEBUG 109858 --- [nio-8080-exec-1] h.i.c.PoolingHttpClientConnectionManager : Connection [id: 0][route: {s}->https://www.youdao.com:443] can be kept alive indefinitely
+2024-04-13 22:44:56.729 DEBUG 109858 --- [nio-8080-exec-1] h.i.c.DefaultManagedHttpClientConnection : http-outgoing-0: set socket timeout to 0
+2024-04-13 22:44:56.729 DEBUG 109858 --- [nio-8080-exec-1] h.i.c.PoolingHttpClientConnectionManager : Connection released: [id: 0][route: {s}->https://www.youdao.com:443][total available: 1; route allocated: 1 of 2; total allocated: 1 of 20]
