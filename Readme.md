@@ -64,7 +64,5 @@
 
 # Test steps for reproduce connection reset
 1. Start server
-2. curl http://localhost:8080/clients/apache/pooling?target=www.youdao.com [Success]
-3. Start tcp reset: python ./tcp-connection-reset.py <client_id> 111.124.200.101 443
-4. curl http://localhost:8080/clients/apache/pooling?target=www.youdao.com [Timeout]
-5. curl http://localhost:8080/clients/apache/pooling?target=www.youdao.com [Quick failed with connection reset exception]
+2. Start tcp reset: python ./tcp-connection-reset.py <client_id> 111.124.200.101 443
+3. curl http://localhost:8080/clients/apache/pooling?target=www.youdao.com [Will success multiple times, then will optionally timeout, and then will quick failed with connection reset exception]
