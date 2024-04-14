@@ -53,13 +53,13 @@ public class RestTemplateConfig {
                 .evictExpiredConnections()
                 .evictIdleConnections(30, TimeUnit.MINUTES)
                 .setConnectionTimeToLive(60, TimeUnit.MINUTES)
-                .setDefaultRequestConfig(RequestConfig.custom()
-                        .setRedirectsEnabled(false)
-                        .setConnectionRequestTimeout(30 * 1000)
-                        .setSocketTimeout(30 * 1000)
-                        .setConnectTimeout(10 * 1000)
-                        .setCookieSpec(CookieSpecs.IGNORE_COOKIES)
-                        .build())
+//                .setDefaultRequestConfig(RequestConfig.custom()
+//                        .setRedirectsEnabled(false)
+//                        .setConnectionRequestTimeout(30 * 1000)
+//                        .setSocketTimeout(30 * 1000)
+//                        .setConnectTimeout(10 * 1000)
+//                        .setCookieSpec(CookieSpecs.IGNORE_COOKIES)
+//                        .build())
                 .build();
         HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
         return new RestTemplate(httpComponentsClientHttpRequestFactory);
