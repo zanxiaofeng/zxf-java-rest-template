@@ -1,12 +1,15 @@
 # Key Classes of RestTemplate
 - org.springframework.web.client.RestTemplate
 - org.springframework.http.client.ClientHttpRequestFactory;
+- org.springframework.http.client.ClientHttpRequestInterceptor
+- org.springframework.http.client.InterceptingClientHttpRequestFactory
 - org.springframework.http.client.ClientHttpRequest;
 - org.springframework.http.client.ClientHttpResponse;
 - org.springframework.http.converter.HttpMessageConverter;
 - org.springframework.http.client.SimpleClientHttpRequestFactory
 - org.springframework.http.client.HttpComponentsClientHttpRequestFactory
 - org.springframework.http.client.OkHttp3ClientHttpRequestFactory
+- org.springframework.http.client.support.InterceptingHttpAccessor
 
 # Key Classes for apache http-client
 - org.apache.http.impl.client.HttpClients;
