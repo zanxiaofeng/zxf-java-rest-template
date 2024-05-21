@@ -33,26 +33,26 @@ public class HttpClientController {
 
     @GetMapping("/default")
     public String defaultHttp(@RequestParam String target) {
-        return defaultRestTemplate.getForObject("https://" + target, String.class);
+        return defaultRestTemplate.getForObject(target, String.class);
     }
 
     @GetMapping("/simple")
     public String simpleHttp(@RequestParam String target) {
-        return simpleRestTemplate.getForObject("https://" + target, String.class);
+        return simpleRestTemplate.getForObject( target, String.class);
     }
 
     @GetMapping("/ok-http")
     public String okHttp3Http(@RequestParam String target) {
-        return okHttp3RestTemplate.getForObject("https://" + target, String.class);
+        return okHttp3RestTemplate.getForObject(target, String.class);
     }
 
     @GetMapping("/apache/default")
     public String defaultApacheHttp(@RequestParam String target) {
-        return defaultApacheRestTemplate.getForObject("https://" + target, String.class);
+        return defaultApacheRestTemplate.getForObject( target, String.class);
     }
 
     @GetMapping("/apache/pooling")
     public String apacheHttpWithPooling(@RequestParam String target) {
-        return apacheRestTemplateWithPool.getForObject("https://" + target, String.class);
+        return apacheRestTemplateWithPool.getForObject( target, String.class);
     }
 }
