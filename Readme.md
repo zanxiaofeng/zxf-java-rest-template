@@ -66,11 +66,16 @@
 - org.springframework.boot.web.client.ClientHttpRequestFactorySupplier
 
 # Test
-- curl http://localhost:8080/clients/apache/pooling?target=https://www.youdao.com
+- curl http://localhost:8080/clients/apache/pooling?target=https://111.124.200.101:443
 - netstat -cnpt|grep <pid>
 - jstack <pid>
 
 # Test steps for reproduce connection reset
 1. Start server
 2. Start tcp reset: python ./tcp-connection-reset.py <client_id> 111.124.200.101 443
-3. curl http://localhost:8080/clients/apache/pooling?target=https://www.youdao.com [Will success multiple times, then will optionally timeout, and then will quick failed with connection reset exception]
+3. curl http://localhost:8080/clients/apache/pooling?target=https://111.124.200.101:443 [Will success multiple times, then will optionally timeout, and then will quick failed with connection reset exception]
+
+# Test step for reproduce connection refused
+1. Start server
+2. iptables -A OUTPUT -p tcp -s <client_id> -d 111.124.200.101 -j REJECT
+3. curl http://localhost:8080/clients/apache/pooling?target=https://111.124.200.101:443
