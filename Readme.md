@@ -79,3 +79,16 @@
 1. Start server
 2. iptables -A OUTPUT -p tcp -s <client_id> -d 111.124.200.101 -j REJECT
 3. curl http://localhost:8080/clients/apache/pooling?target=https://111.124.200.101:443
+
+# How to manage timeout for a http connect and request
+## Timeouts for SimpleClientHttpRequestFactory
+- connectTimeout = -1;(URLConnection)
+- readTimeout = -1;(URLConnection)
+## Timeouts for OkHttp3ClientHttpRequestFactory
+- connectTimeout = 10_000;(OkHttpClient)
+- readTimeout = 10_000;(OkHttpClient)
+- writeTimeout = 10_000;(OkHttpClient)
+## Timeouts for HttpComponentsClientHttpRequestFactory
+- connectionRequestTimeout = -1;(RequestConfig)
+- connectTimeout = -1;(RequestConfig)
+- socketTimeout = -1;(RequestConfig)
