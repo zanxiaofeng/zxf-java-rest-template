@@ -2,10 +2,11 @@ package zxf.java.http.config;
 
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.CookieSpecs;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.core5.util.TimeValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -41,27 +42,30 @@ public class RestTemplateConfig {
 
     @Bean("defaultApacheRestTemplate")
     public RestTemplate defaultApacheRestTemplate() {
-        HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
         return new RestTemplate(httpComponentsClientHttpRequestFactory);
     }
 
     @Bean("apacheRestTemplateWithPool")
     public RestTemplate apacheRestTemplateWithPool() {
-        HttpClient httpClient = HttpClients.custom()
-                .setMaxConnTotal(200)
-                .setMaxConnPerRoute(20)
-                .evictExpiredConnections()
-                .evictIdleConnections(30, TimeUnit.MINUTES)
-                .setConnectionTimeToLive(60, TimeUnit.MINUTES)
-                //Note the default timeout is -1(never)
-                .setDefaultRequestConfig(RequestConfig.custom()
-                        .setRedirectsEnabled(false)
-                        .setConnectionRequestTimeout(30 * 1000)
-                        .setSocketTimeout(30 * 1000)
-                        .setConnectTimeout(10 * 1000)
-                        .setCookieSpec(CookieSpecs.IGNORE_COOKIES)
-                        .build())
+        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+        connectionManager.setMaxTotal(200);
+        connectionManager.setDefaultMaxPerRoute(20);
+
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setRedirectsEnabled(false)
+                .setConnectionRequestTimeout(30, TimeUnit.SECONDS)
+                .setResponseTimeout(30, TimeUnit.SECONDS)
                 .build();
+
+        CloseableHttpClient httpClient = HttpClients.custom()
+                .setConnectionManager(connectionManager)
+                .setDefaultRequestConfig(requestConfig)
+                .evictExpiredConnections()
+                .evictIdleConnections(TimeValue.ofMinutes(30))
+                .build();
+
         HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
         return new RestTemplate(httpComponentsClientHttpRequestFactory);
     }
