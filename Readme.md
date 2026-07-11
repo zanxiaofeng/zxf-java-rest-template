@@ -1,3 +1,8 @@
+# Key Classes of RestClient (modern successor to RestTemplate, Spring Framework 6.1+)
+- org.springframework.web.client.RestClient
+- org.springframework.web.client.RestClient.Builder
+- org.springframework.web.client.RestClient.ResponseSpec / RequestSpec
+
 # Key Classes of RestTemplate
 - org.springframework.web.client.RestTemplate
 - org.springframework.http.client.ClientHttpRequestFactory;
@@ -8,7 +13,7 @@
 - org.springframework.http.converter.HttpMessageConverter;
 - org.springframework.http.client.SimpleClientHttpRequestFactory
 - org.springframework.http.client.HttpComponentsClientHttpRequestFactory
-- org.springframework.http.client.OkHttp3ClientHttpRequestFactory
+- ~~org.springframework.http.client.OkHttp3ClientHttpRequestFactory~~ (removed in Spring Framework 7.0)
 - org.springframework.http.client.support.InterceptingHttpAccessor
 
 # Key Classes for apache http-client
@@ -56,14 +61,12 @@
 - org.apache.http.impl.BHttpConnectionBase.isStale
 
 # Key Classes for apache ok-http-3
-- okhttp3.OkHttpClient
-- okhttp3.ConnectionPool
-- okhttp3.internal.platform.Platform
+- Removed from this project: OkHttp3 support was dropped in Spring Framework 7.0 (Spring Boot 4.x).
 
 # Key Classes for Auto Configure
-- org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration
-- org.springframework.boot.autoconfigure.web.client.RestTemplateBuilderConfigurer
-- org.springframework.boot.web.client.ClientHttpRequestFactorySupplier
+- Removed in Spring Boot 4.x: `RestTemplateAutoConfiguration`, `RestTemplateBuilderConfigurer`,
+  `RestTemplateBuilder` and `ClientHttpRequestFactorySupplier` (the entire
+  `org.springframework.boot.web.client` package) are gone. Construct `RestTemplate` beans directly.
 
 # Test
 - curl http://localhost:8080/clients/apache/pooling?target=https://111.124.200.101:443
@@ -85,9 +88,7 @@
 - connectTimeout = -1;(URLConnection)
 - readTimeout = -1;(URLConnection)
 ## Timeouts for OkHttp3ClientHttpRequestFactory
-- connectTimeout = 10_000;(OkHttpClient)
-- readTimeout = 10_000;(OkHttpClient)
-- writeTimeout = 10_000;(OkHttpClient)
+- Removed: OkHttp3 support dropped in Spring Framework 7.0.
 ## Timeouts for HttpComponentsClientHttpRequestFactory
 - connectionRequestTimeout = -1;(RequestConfig)
 - connectTimeout = -1;(RequestConfig)

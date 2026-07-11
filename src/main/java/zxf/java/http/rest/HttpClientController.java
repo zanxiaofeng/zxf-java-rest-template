@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -20,16 +21,16 @@ public class HttpClientController {
     private RestTemplate simpleRestTemplate;
 
     @Autowired
-    @Qualifier("okHttp3RestTemplate")
-    private RestTemplate okHttp3RestTemplate;
-
-    @Autowired
     @Qualifier("defaultApacheRestTemplate")
     private RestTemplate defaultApacheRestTemplate;
 
     @Autowired
     @Qualifier("apacheRestTemplateWithPool")
     private RestTemplate apacheRestTemplateWithPool;
+
+    @Autowired
+    @Qualifier("defaultRestClient")
+    private RestClient defaultRestClient;
 
     @GetMapping("/default")
     public String defaultHttp(@RequestParam String target) {
@@ -41,11 +42,6 @@ public class HttpClientController {
         return simpleRestTemplate.getForObject( target, String.class);
     }
 
-    @GetMapping("/ok-http")
-    public String okHttp3Http(@RequestParam String target) {
-        return okHttp3RestTemplate.getForObject(target, String.class);
-    }
-
     @GetMapping("/apache/default")
     public String defaultApacheHttp(@RequestParam String target) {
         return defaultApacheRestTemplate.getForObject( target, String.class);
@@ -54,5 +50,13 @@ public class HttpClientController {
     @GetMapping("/apache/pooling")
     public String apacheHttpWithPooling(@RequestParam String target) {
         return apacheRestTemplateWithPool.getForObject( target, String.class);
+    }
+
+    @GetMapping("/rest-client")
+    public String restClientHttp(@RequestParam String target) {
+        return defaultRestClient.get()
+                .uri(target)
+                .retrieve()
+                .body(String.class);
     }
 }
